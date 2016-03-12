@@ -3,9 +3,19 @@ var app = express();
 var fs = require("fs");
 var _ = require("lodash")
 
+app.use(express.static("dist"));
+
 app.use(function(req, res, next) {
     res.header("Content-Type", "application/json; charset=utf-8");
     next();
+});
+
+app.use(function(req, res, next) {
+    // console.log("Delaying...");
+    setTimeout(function() {
+        // console.log("Delayed");
+        next();
+    }, 5000);
 });
 
 app.get("/fylker", function (req, res) {

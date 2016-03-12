@@ -1,0 +1,24 @@
+{
+  "name": "keep-your-promises",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Arjan Einbu <arjan@einbu.no>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/aeinbu/keep-your-promises",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "angular": "^1.5.0",
+    "angular-ui-router": "^0.2.18"
+  }
+}
