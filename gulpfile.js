@@ -17,22 +17,22 @@ var babel = require("gulp-babel");
 var cssnano = require("gulp-cssnano");
 var htmlreplace = require("gulp-html-replace");
 var ngAnnotate = require("gulp-ng-annotate");
-var mainBowerFiles = require('gulp-main-bower-files');
-var browserSync = require('browser-sync').create();
-
+var mainBowerFiles = require("gulp-main-bower-files");
+var browserSync = require("browser-sync").create();
+var server = require("./server");
 
 gulp.task('serve', ['build'], function () {
-    browserSync.init({
-        server: {
-            baseDir: './'
-        },
-        startPath: 'dist/index.html'
-    });
+    browserSync.init({logSnippet: false});
 
     gulp.watch('index.html', ['build-index-html', browserSync.reload]);
     gulp.watch('lib/**/*.html', ['build-html-templates', browserSync.reload]);
     gulp.watch('assets/**/*.css', ['build-css', 'copy-bootstrap-assets', browserSync.reload]);
     gulp.watch('lib/**/*.js', ['build-js', browserSync.reload]);
+
+    server.start({
+        browserSync: browserSync
+    });
+
 });
 
 
@@ -51,7 +51,7 @@ gulp.task("build-js", ["clean-js"], function () {
     ])
         .pipe(sourcemaps.init())
         .pipe(concat("app.js"))
-        // .pipe(babel())
+    // .pipe(babel())
         .pipe(gulp.dest(jsDestPath))
         .pipe(ngAnnotate())
         .pipe(uglify())
@@ -65,22 +65,22 @@ gulp.task("clean-js", function () {
 });
 
 
-gulp.task("build-bower-files", ["clean-bower-files"], function(){
-	var jsFilter = filter('**/*.js', {restore: true});
-    
+gulp.task("build-bower-files", ["clean-bower-files"], function () {
+    var jsFilter = filter('**/*.js', { restore: true });
+
     return gulp.src("bower.json")
         .pipe(mainBowerFiles())
         .pipe(jsFilter)
         .pipe(sourcemaps.init())
         .pipe(concat("extlibs.js"))
         .pipe(gulp.dest(jsDestPath))
-        .pipe(uglify())
+    // .pipe(uglify())
         .pipe(rename("extlibs.min.js"))
-        .pipe(sourcemaps.write(".", { includeContent: false, sourceRoot: "../../lib"}))
+        .pipe(sourcemaps.write(".", { includeContent: false, sourceRoot: "../../lib" }))
         .pipe(gulp.dest(jsDestPath));
 });
 
-gulp.task("clean-bower-files", function(){
+gulp.task("clean-bower-files", function () {
     return del([jsDestPath + "extlibs.js"]);
 });
 
@@ -95,7 +95,7 @@ gulp.task("clean-html-templates", function () {
 });
 
 
-gulp.task("copy-bootstrap-assets", ["clean-bootstrap-assets"], function(){
+gulp.task("copy-bootstrap-assets", ["clean-bootstrap-assets"], function () {
     var bootstrapSrc = "bower_components/bootstrap/dist/";
 
     var s1 = gulp.src(bootstrapSrc + "css/bootstrap*.css")
@@ -109,11 +109,11 @@ gulp.task("copy-bootstrap-assets", ["clean-bootstrap-assets"], function(){
 
     var s4 = gulp.src(bootstrapSrc + "fonts/*")
         .pipe(gulp.dest(cssDestPath + "fonts/"));
-        
+
     return mergeStream(s1, s2, s3, s4);
 });
 
-gulp.task("clean-bootstrap-assets", function(){
+gulp.task("clean-bootstrap-assets", function () {
     return del([cssDestPath + "css/*", cssDestPath + "fonts/*"]);
 });
 
@@ -138,7 +138,7 @@ gulp.task("build-index-html", ["clean-index-html"], function () {
     return gulp.src("*.html")
         .pipe(htmlreplace({
             js: [jsSrcPath + "extlibs.min.js", jsSrcPath + "app.min.js"],
-            css: [cssSrcPath + "css/bootstrap.css", cssSrcPath + "css/bootstrap-theme.css", cssSrcPath +  "styles.min.css"]
+            css: [cssSrcPath + "css/bootstrap.css", cssSrcPath + "css/bootstrap-theme.css", cssSrcPath + "styles.min.css"]
         }))
         .pipe(gulp.dest(rootDestPath));
 });
