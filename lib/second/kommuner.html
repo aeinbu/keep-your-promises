@@ -1,0 +1,13 @@
+<div ng-controller="second.kommuner">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Kommuner</div>
+            <div class="list-group">
+                <a ng-repeat="kommune in vm.kommuner" ui-sref=".kommune({kommune: kommune})" class="list-group-item" ui-sref-active="active">
+                {{kommune}}
+            </a>
+            </div>
+        </div>
+    </div>
+    <div ui-view></div>
+</div>

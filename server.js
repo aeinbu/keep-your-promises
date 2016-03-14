@@ -18,11 +18,9 @@ exports.start = function(options) {
     });
 
     app.use(function (req, res, next) {
-        // console.log("Delaying...");
         setTimeout(function () {
-            // console.log("Delayed");
             next();
-        }, 5000);
+        }, 2000);
     });
 
     app.get("/fylker", function (req, res) {
