@@ -32,15 +32,42 @@ exports.start = function(options) {
         });
     });
 
-    app.get("/kommuner/i/:id", function (req, res) {
+    app.get("/kommuner/i/:fylke", function (req, res) {
         fs.readFile("./data.json", "utf-8", function (err, data) {
             data = JSON.parse(data);
-            data = data[req.params.id];
+            data = data[req.params.fylke];
             data = data.map(item => item.kommune);
-
             return res.send(data);
         });
     });
+
+    app.get("/befolkningsdata/for/:kommune", function (req, res) {
+        fs.readFile("./population.json", "utf-8", function (err, data) {
+            data = JSON.parse(data);
+            data = data[req.params.kommune];
+            return res.send(data);
+        });
+    });
+    
+    app.get("/test", function(req, res){
+        fs.readFile("./population.json", "utf-8", function (err, data) {
+            data = JSON.parse(data);
+            data = _(data)
+                .groupBy(item => item.kommune)
+                .mapValues(item => _.fromPairs(item.map( subItem => {
+                    return [subItem.variabel, subItem.verdi];
+                })));
+                
+
+            return res.send(data);
+        });        
+    });
+    
+// line.indexOf("Folketalet ved inngangen av kvartalet")>=0 ||
+// line.indexOf("Fødselsoverskot")>=0 ||
+// line.indexOf("Nettoinnflytting, inkl. inn- og utvandring")>=0 ||
+// line.indexOf("Folkevekst")>=0 ||
+// line.indexOf("Folketalet ved utgangen av kvartalet")>=0
 
 
     var server = app.listen(8081, function () {
