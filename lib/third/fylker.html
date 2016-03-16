@@ -1,0 +1,16 @@
+<div ng-controller="third.fylker">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">Fylker</div>
+                <div class="list-group">
+                    <a ng-repeat="fylke in vm.fylker" ui-sref=".kommuner({fylke: fylke})" class="list-group-item" ui-sref-active="active">
+                        {{fylke}}
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div ui-view>
+        </div>
+    </div>
+    </div>
