@@ -50,13 +50,14 @@ gulp.task("build-js", ["clean-js"], function () {
         jsSrcPath + "**/*.js",
     ])
         .pipe(sourcemaps.init())
-        .pipe(concat("app.js"))
-    // .pipe(babel())
         .pipe(gulp.dest(jsDestPath))
+        .pipe(concat("app.js"))
+	    // .pipe(babel())
+        // .pipe(gulp.dest(jsDestPath))
         .pipe(ngAnnotate())
         .pipe(uglify())
         .pipe(rename("app.min.js"))
-        .pipe(sourcemaps.write(".", { includeContent: false, sourceRoot: "../../lib" }))
+        .pipe(sourcemaps.write(".", { includeContent: false, sourceRoot: "../lib" }))
         .pipe(gulp.dest(jsDestPath));
 });
 
@@ -74,9 +75,9 @@ gulp.task("build-bower-files", ["clean-bower-files"], function () {
         .pipe(sourcemaps.init())
         .pipe(concat("extlibs.js"))
         .pipe(gulp.dest(jsDestPath))
-    // .pipe(uglify())
+        // .pipe(uglify())
         .pipe(rename("extlibs.min.js"))
-        .pipe(sourcemaps.write(".", { includeContent: false, sourceRoot: "../../lib" }))
+        .pipe(sourcemaps.write(".", { includeContent: false, sourceRoot: "../lib" }))
         .pipe(gulp.dest(jsDestPath));
 });
 

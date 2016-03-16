@@ -10,6 +10,8 @@ exports.start = function(options) {
         app.use(connectBrowserSync(options.browserSync));
     }
 
+    app.disable('etag');
+
     app.use(express.static("dist"));
 
     app.use(function (req, res, next) {
@@ -63,13 +65,6 @@ exports.start = function(options) {
         });        
     });
     
-// line.indexOf("Folketalet ved inngangen av kvartalet")>=0 ||
-// line.indexOf("Fødselsoverskot")>=0 ||
-// line.indexOf("Nettoinnflytting, inkl. inn- og utvandring")>=0 ||
-// line.indexOf("Folkevekst")>=0 ||
-// line.indexOf("Folketalet ved utgangen av kvartalet")>=0
-
-
     var server = app.listen(8081, function () {
         var host = server.address().address;
         var port = server.address().port;
