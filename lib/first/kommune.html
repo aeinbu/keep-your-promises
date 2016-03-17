@@ -1,9 +1,19 @@
 <div ng-controller="first.kommune">
     <div class="col-md-4">
         <div class="panel panel-default">
-            <div class="panel-heading">Befolkning (Q4-2015)</div>
-            <div class="panel-body">
-                {{ vm.befolkningsData | json }}
+            <div class="panel-heading">Befolkning</div>
+            <div class="panel-body" ng-show="vm.befolkningsData">
+				<dl>
+					<dt>Folketalet ved inngangen av kvartalet</dt>
+					<dd>{{vm.befolkningsData["Folketalet ved inngangen av kvartalet"]}}</dd>
+					<dt>Fødselsoverskot</dt>
+					<dd>{{vm.befolkningsData["Fødselsoverskot"]}}</dd>
+					<dt>Nettoinnflytting, inkl. inn- og utvandring</dt>
+					<dd>{{vm.befolkningsData["Nettoinnflytting, inkl. inn- og utvandring"]}}</dd>
+				</dl>
+				<button ng-show="vm.befolkningsData" ng-click="vm.click()">Beregne befolkningsvekst</button>
+				<p ng-show="vm.nettoVekst">Nettovekst for {{vm.kommune}} var {{vm.nettoVekst}}</p>
+				<p ng-show="vm.dataTidspunkt">(Data for {{vm.dataTidspunkt}})</p>
             </div>
         </div>
     </div>

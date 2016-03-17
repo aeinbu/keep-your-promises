@@ -55,7 +55,7 @@ gulp.task("build-js", ["clean-js"], function () {
 	    // .pipe(babel())
         // .pipe(gulp.dest(jsDestPath))
         .pipe(ngAnnotate())
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(rename("app.min.js"))
         .pipe(sourcemaps.write(".", { includeContent: false, sourceRoot: "../lib" }))
         .pipe(gulp.dest(jsDestPath));
