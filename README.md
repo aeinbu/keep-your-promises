@@ -1,5 +1,6 @@
 # keep-your-promises
 Kode fra presentasjonen min på Webstep Fokus sin åpne fagkveld torsdag 17. mars 2016.
+Video av presentasjonen finner du her: https://www.youtube.com/watch?v=TDuDZTLKp_w
 
 ## Klargjør maskinen (Påkrevd oppsett)
 - Installer node.js fra https://nodejs.org/
