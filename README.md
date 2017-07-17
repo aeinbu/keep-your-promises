@@ -18,7 +18,7 @@ npm update
 bower update
 ````
 
-##Kjør prosjektet
+## Kjør prosjektet
 - I terminal/command prompt
   - Kjør `gulp serve`
 - Naviger til `http://localhost:8081/` i din nettleser.
